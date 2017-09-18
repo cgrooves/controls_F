@@ -20,6 +20,6 @@ total_length = 2*d + rotor_width
 target_width = 0.1
 target_height = 0.1
 
-body_coords = np.matrix([[-VTOL_center_size/2, -VTOL_center_size/2, \
-            VTOL_center_size/2, d - rotor_width/2, d, -d + rotor_width/2, -d],\
-            [0,-VTOL_center_size,0,0,0,0,0]])
+body_coords = np.matrix([[-VTOL_center_size/2, -VTOL_center_size/2.0, \
+            VTOL_center_size/2.0, d - rotor_width/2.0, d, -d + rotor_width/2.0, -d],\
+            [0.0,-VTOL_center_size/2.0,0.0,0.0,0.0,0.0,0.0]])
