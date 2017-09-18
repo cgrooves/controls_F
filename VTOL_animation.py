@@ -39,6 +39,8 @@ class VTOLAnimation:
 
     def drawCenter(self,theta):
 
+        theta *= 180/np.pi # Convert theta to degrees
+
         xy = (self.body.keypoints[0,1],self.body.keypoints[1,1])
 
         if self.flagInit == True:
@@ -56,8 +58,8 @@ class VTOLAnimation:
         y_right = (self.body.keypoints[1,2],self.body.keypoints[1,3])
 
         if self.flagInit == True:
-            self.handle.append(mpl.lines.Line2D(x_left,y_left,lw=1,alpha=0.3))
-            self.handle.append(mpl.lines.Line2D(x_right,y_right,lw=1,alpha=0.3))
+            self.handle.append(mpl.lines.Line2D(x_left,y_left,lw=3,alpha=1))
+            self.handle.append(mpl.lines.Line2D(x_right,y_right,lw=3,alpha=1))
             self.ax.add_line(self.handle[LEFT_CONNECTOR])
             self.ax.add_line(self.handle[RIGHT_CONNECTOR])
 
@@ -68,6 +70,7 @@ class VTOLAnimation:
             self.handle[RIGHT_CONNECTOR].set_xdata(x_right)
 
     def drawRotors(self,theta):
+        theta = theta * 180/np.pi # Convert theta to degrees
 
         x_left = self.body.keypoints[0,5]
         y_left = self.body.keypoints[1,5]
@@ -96,7 +99,8 @@ if __name__ == "__main__":
 
     dingie = VTOLAnimation()
     z = 0
-    theta = np.pi/3
-    h = 0.5
+    theta = 0
+    h = 0
     dingie.drawVTOL([z,h,theta])
+    plt.axis('equal')
     plt.show()
