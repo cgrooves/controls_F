@@ -3,6 +3,7 @@ import matplotlib as mpl
 import matplotlib.patches as mpatches
 import numpy as np
 import VTOL_params as P
+from RigidBody import RigidBody
 
 CENTER = 0
 LEFT_CONNECTOR = 1
@@ -10,7 +11,7 @@ RIGHT_CONNECTOR = 2
 LEFT_ROTOR = 3
 RIGHT_ROTOR = 4
 
-class VTOL_animation:
+class VTOLAnimation:
 
     def __init__(self):
         self.flagInit = True
@@ -29,9 +30,9 @@ class VTOL_animation:
         self.body.move(u) # translate and rotate skeleton
 
         # draw out the updated components
-        self.drawRotors(theta)
         self.drawCenter(theta)
         self.drawConnectors()
+        self.drawRotors(theta)
 
         if self.flagInit == True:
             self.flagInit = False
@@ -42,7 +43,7 @@ class VTOL_animation:
 
         if self.flagInit == True:
             self.handle.append(mpatches.Rectangle(xy,P.VTOL_center_size,\
-            P.VTOL_center_size,angle=u[2]))
+            P.VTOL_center_size,angle=theta))
             self.ax.add_patch(self.handle[CENTER])
         else:
             self.handle[CENTER].set_xy(xy)
@@ -68,10 +69,6 @@ class VTOL_animation:
 
     def drawRotors(self,theta):
 
-        z = u[0]
-        h = u[1]
-        theta = u[2]
-
         x_left = self.body.keypoints[0,5]
         y_left = self.body.keypoints[1,5]
         x_right = self.body.keypoints[0,4]
@@ -92,3 +89,14 @@ class VTOL_animation:
         else:
             self.handle[LEFT_ROTOR].set_xy(xy_left)
             self.handle[RIGHT_ROTOR].set_xy(xy_right)
+
+
+# Used to see the animation
+if __name__ == "__main__":
+
+    dingie = VTOLAnimation()
+    z = 0
+    theta = np.pi/3
+    h = 0.5
+    dingie.drawVTOL([z,h,theta])
+    plt.show()

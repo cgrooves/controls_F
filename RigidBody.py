@@ -1,3 +1,5 @@
+import numpy as np
+
 class RigidBody:
 
     def __init__(self, keypts):
@@ -21,4 +23,4 @@ class RigidBody:
     def rotate(self,theta):
         rMatrix = np.matrix([[np.cos(theta), -np.sin(theta)],[np.sin(theta), np.cos(theta)]])
 
-        self.keypoints = rMatrix*keypoints
+        self.keypoints = rMatrix*self.keypoints
