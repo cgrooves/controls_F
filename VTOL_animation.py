@@ -19,8 +19,8 @@ class VTOLAnimation:
         self.handle = []
         self.body = RigidBody(P.body_coords)
 
-        plt.axis([-3*P.rotor_width, 3*P.rotor_width, -0.1, 3*P.rotor_width])
-        plt.plot([-2*P.rotor_width, 2*P.rotor_width],[0,0],'b--')
+        plt.axis([-30*P.rotor_width, 30*P.rotor_width, -10, 30*P.rotor_width])
+        plt.plot([-5*P.rotor_width, 5*P.rotor_width],[0,0],'b--')
 
     def drawVTOL(self,u):
         z = u[0]
@@ -98,9 +98,10 @@ class VTOLAnimation:
 if __name__ == "__main__":
 
     dingie = VTOLAnimation()
-    z = 0
-    theta = 0
-    h = 0
+    z = 1.5
+    theta = 30
+    theta *= np.pi/180
+    h = .2
     dingie.drawVTOL([z,h,theta])
     plt.axis('equal')
     plt.show()
