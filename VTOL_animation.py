@@ -19,8 +19,8 @@ class VTOLAnimation:
         self.handle = []
         self.body = RigidBody(P.body_coords)
 
-        plt.axis([-30*P.rotor_width, 30*P.rotor_width, -10, 30*P.rotor_width])
-        plt.plot([-5*P.rotor_width, 5*P.rotor_width],[0,0],'b--')
+        plt.axis([-2*P.L, 2*P.L, -P.L, 2*P.L])
+        plt.plot([-2*P.L,2*P.L],[0,0],'b--')
 
     def drawVTOL(self,u):
         z = u[0]
@@ -49,6 +49,7 @@ class VTOLAnimation:
             self.ax.add_patch(self.handle[CENTER])
         else:
             self.handle[CENTER].set_xy(xy)
+            self.handle[CENTER]._angle = theta
 
     def drawConnectors(self):
 
@@ -90,8 +91,10 @@ class VTOLAnimation:
             ,angle=theta))
             self.ax.add_patch(self.handle[RIGHT_ROTOR])
         else:
-            self.handle[LEFT_ROTOR].set_xy(xy_left)
-            self.handle[RIGHT_ROTOR].set_xy(xy_right)
+            pass
+            self.handle[LEFT_ROTOR].center = x_left, y_left
+            self.handle[RIGHT_ROTOR].center = x_right, y_right
+            self.handle[RIGHT_ROTOR].angle = theta
 
 
 # Used to see the animation

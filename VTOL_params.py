@@ -14,7 +14,12 @@ rotor_width = 0.2
 rotor_height = 0.05
 VTOL_center_size = 0.1
 d = 0.3 # rotor distance from center of mass
-total_length = 2*d + rotor_width
+L = 2*d + rotor_width
+
+z0 = 0.0
+h0 = 0.0
+
+Ts = 0.01
 
 # Target parameters
 target_width = 0.1

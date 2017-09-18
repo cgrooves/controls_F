@@ -13,8 +13,9 @@ class RigidBody:
         h = u[1]
         theta = u[2]
 
-        self.translate(z,h)
         self.rotate(theta)
+        self.translate(z,h)
+
 
     def translate(self,z,h):
         self.keypoints[0,:] += z
