@@ -69,6 +69,18 @@ classdef VTOLDynamics < handle
            xdot(6) = 1/(self.Jc + 2*self.mr * (self.d)^2)*(fR - fL)*self.d;
            
         end
+        % -----------------------------------------------------------------
+        function y = output(self)
+            % Return the system variables as a column vector
+            zv = self.state(1);
+            h = self.state(3);
+            theta = self.state(5);
+            
+            y = [zv; h; theta];
+            
+        end
+        % -----------------------------------------------------------------
         
+    end       
     
 end

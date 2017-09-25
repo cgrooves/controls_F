@@ -1,16 +1,20 @@
 % add parameters
 addpath ./..
 VTOL_params
-% add path to shape classes
-addpath ~/Documents/MATLAB/
 
 % create dynamics object
+dynamics = VTOLDynamics(P);
 % create signal input
+VTOL_gui
 % create animation object
+animation = VTOLAnimation(P);
 
 % while forever
-
-% get input values
-% propogate the dynamics based on input
-% advance the time
-% update the ani
+while 1
+    % get input values
+    f = get_input();
+    % propagate the dynamics based on input
+    dynamics.propagateDynamics(f);
+    % advance the time
+    % update the animation
+end

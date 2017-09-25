@@ -6,7 +6,6 @@ classdef VTOLAnimation
         d
         rotor_width
         ax
-        
         center
         rotor_r
         rotor_l
@@ -44,26 +43,11 @@ classdef VTOLAnimation
               % ----------------------------------------------------------
               function self = drawVTOL(self,x)
                   
-                  zv = x(1);
-                  h = x(2);
-                  theta = x(3);
+                  zv 
                   
-                  self.center.transform([zv;h],self.ax);
-                  self.center.rotate(theta,self.ax);
-                  
-                  self.rotor_r.transform([zv;h],self.ax);
-                  self.rotor_r.rotate(theta,self.ax);
-                  
-                  self.rotor_l.transform([zv;h],self.ax);
-                  self.rotor_l.rotate(theta,self.ax);
-                  
-                  self.connector_l.transform([zv;h],self.ax);
-                  self.connector_l.rotate(theta,self.ax);
-                  
-                  self.connector_r.transform([zv;h],self.ax);
-                  self.connector_r.rotate(theta,self.ax);
-              end
-              % ----------------------------------------------------------
+                  self.center.transform([zv;h]);
+                  self.center.rotate(theta);
+        
         
     end    
 end

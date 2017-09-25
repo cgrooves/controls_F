@@ -23,3 +23,5 @@ P.thetadot0 = 0;
 P.width = 0.1; % m
 P.height = 0.1; % m
 P.rotor_width = 0.2; % m
+P.plot_length = 5;
+P.plot_height = 5;
