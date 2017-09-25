@@ -10,6 +10,7 @@ classdef VTOLDynamics < handle
        nu
        g
        Ts
+       initials
        
     end
     
@@ -26,6 +27,7 @@ classdef VTOLDynamics < handle
                 P.theta0;...
                 P.thetadot0;...
                 ];
+            self.initials = self.state; % store initial values
             
             % Initialize other simulation parameters
             self.mc = P.mc;
@@ -80,7 +82,11 @@ classdef VTOLDynamics < handle
             
         end
         % -----------------------------------------------------------------
-        
+        function self = reset(self)
+            % Reset to initial values
+            self.state = self.initials;
+        end
+        % -----------------------------------------------------------------
     end       
     
 end

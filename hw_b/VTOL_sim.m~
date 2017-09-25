@@ -28,10 +28,14 @@ while 1
     % propagate the dynamics based on input
     dynamics.propagateDynamics(f);
     % advance the time - unnecessary step here
-    
+    % if reset push, reset dynamics
+    if get(handles.reset,'Value')
+        dynamics.reset()
+    end
     % update the animation
     y = dynamics.output();
     animation.drawVTOL(y);
     
+    pause(0.1);
     
 end

@@ -13,7 +13,7 @@ P.Ts = 0.1; % time step value, seconds
 
 % Initial values
 P.zv0 = 0;
-P.h0 = 0;
+P.h0 = 2;
 P.theta0 = 0;
 P.zvdot0 = 0;
 P.hdot0 = 0;

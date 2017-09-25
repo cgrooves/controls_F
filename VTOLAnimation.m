@@ -33,7 +33,7 @@ classdef VTOLAnimation
                  hold(self.ax,'on')
                  xlabel(self.ax,'zv (m)')
                  ylabel(self.ax,'h (m)')
-                 set(self.ax,'XLim',[-P.plot_length/2,P.plot_length/2],'YLim',[-P.plot_length/2,P.plot_length/2], ...
+                 set(self.ax,'XLim',[-P.plot_length/2,P.plot_length/2],'YLim',[-P.plot_length/10,P.plot_length], ...
                      'dataaspectratio',[1 1 1]);
                  
                  % Initialize VTOL to initial conditions
