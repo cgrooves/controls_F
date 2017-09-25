@@ -60,14 +60,6 @@ guidata(hObject, handles);
 
 % UIWAIT makes VTOL_gui wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-addpath ./..
-VTOL_params
-% Set slider min's and max's based on parameters file
-set(handles.fL_slider,'Min',P.f_min,'Max',P.f_max,'Value',P.f_init)
-set(handles.fR_slider,'Min',P.f_min,'Max',P.f_max,'Value',P.f_init)
-
-% Update Gui handles
-guidata(hObject,handles)
 
 
 % --- Outputs from this function are returned to the command line.

@@ -1,3 +1,6 @@
+% clear
+clear; close; clc;
+
 % add parameters
 addpath ./..
 VTOL_params
@@ -11,6 +14,9 @@ handles = guidata(VTOL);
 ax = handles.plot1; % get axes handle to plot on VTOL_gui, assign to ax
 fL = handles.fL_slider;
 fR = handles.fR_slider;
+% set slider values
+set(fR,'Min',P.f_min,'Max',P.f_max,'Value',P.f_init)
+set(fL,'Min',P.f_min,'Max',P.f_max,'Value',P.f_init)
 
 % create animation object
 animation = VTOLAnimation(P,ax);
@@ -26,5 +32,7 @@ while 1
     % update the animation
     y = dynamics.output();
     animation.drawVTOL(y);
+    
+    pause(0.1);
     
 end
