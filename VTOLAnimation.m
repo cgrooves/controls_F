@@ -38,8 +38,8 @@ classdef VTOLAnimation
                  self.center = Rectangle(self.width,self.height,0);
                  self.rotor_r = Ellipse(self.rotor_width,self.height,[self.d;0],50);
                  self.rotor_l = Ellipse(self.rotor_width,self.height,[-self.d;0],50);
-                 self.connector_l = SLine([0,d],[0,0]);
-                 self.connector_r = SLine([0,-d],[0,0]);
+                 self.connector_l = SLine([0,self.d],[0,0]);
+                 self.connector_r = SLine([0,-self.d],[0,0]);
               end
               % ----------------------------------------------------------
               function self = drawVTOL(self,x)
@@ -48,19 +48,19 @@ classdef VTOLAnimation
                   h = x(2);
                   theta = x(3);
                   
-                  self.center.transform([zv;h],self.ax);
+                  self.center.translate([zv;h],self.ax);
                   self.center.rotate(theta,self.ax);
                   
-                  self.rotor_r.transform([zv;h],self.ax);
+                  self.rotor_r.translate([zv;h],self.ax);
                   self.rotor_r.rotate(theta,self.ax);
                   
-                  self.rotor_l.transform([zv;h],self.ax);
+                  self.rotor_l.translate([zv;h],self.ax);
                   self.rotor_l.rotate(theta,self.ax);
                   
-                  self.connector_l.transform([zv;h],self.ax);
+                  self.connector_l.translate([zv;h],self.ax);
                   self.connector_l.rotate(theta,self.ax);
                   
-                  self.connector_r.transform([zv;h],self.ax);
+                  self.connector_r.translate([zv;h],self.ax);
                   self.connector_r.rotate(theta,self.ax);
               end
               % ----------------------------------------------------------

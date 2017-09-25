@@ -25,3 +25,7 @@ P.height = 0.1; % m
 P.rotor_width = 0.2; % m
 P.plot_length = 5;
 P.plot_height = 5;
+
+P.f_init = P.g*(P.mc+P.mr+P.ml); % force necessary to keep VTOL up
+P.f_max = P.f_init * 5;
+P.f_min = P.f_init * -5;

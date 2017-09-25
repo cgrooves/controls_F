@@ -15,9 +15,17 @@ P.Ts = 0.1; % time step value, seconds
 P.zv0 = 0;
 P.h0 = 0;
 P.theta0 = 0;
-P
+P.zvdot0 = 0;
+P.hdot0 = 0;
+P.thetadot0 = 0;
 
 % Animation parameters
 P.width = 0.1; % m
 P.height = 0.1; % m
 P.rotor_width = 0.2; % m
+P.plot_length = 5;
+P.plot_height = 5;
+
+P.f_max = 20;
+P.f_min = -f_max;
+P.f_init = 
