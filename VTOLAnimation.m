@@ -38,8 +38,8 @@ classdef VTOLAnimation
                  
                  % Initialize VTOL to initial conditions
                  self.center = Rectangle(self.width,self.height,0,self.ax);
-                 self.rotor_r = Ellipse(self.rotor_width,self.height,[self.d;0],50,self.ax);
-                 self.rotor_l = Ellipse(self.rotor_width,self.height,[-self.d;0],50,self.ax);
+                 self.rotor_r = Ellipse(self.rotor_width,P.rotor_height,[self.d;0],50,self.ax);
+                 self.rotor_l = Ellipse(self.rotor_width,P.rotor_height,[-self.d;0],50,self.ax);
                  self.connector_l = SLine([0,self.d],[0,0],self.ax);
                  self.connector_r = SLine([0,-self.d],[0,0],self.ax);
               end

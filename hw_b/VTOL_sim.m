@@ -22,8 +22,11 @@ set(fL,'Min',P.f_min,'Max',P.f_max,'Value',P.f_init)
 % create animation object
 animation = VTOLAnimation(P,ax);
 
+% create target object animation
+target = Rectangle(P.target_b, P.target_h, [0; P.target_h/2],ax);
+
 % while forever
-while 1
+while isgraphics(VTOL)
     % get input values
     f = [get(fL,'Value'); get(fR,'Value')];     % get input value from sliders on VTOL_gui, assign to f
     % propagate the dynamics based on input
