@@ -34,8 +34,14 @@ class VTOLAnimation:
         self.drawConnectors()
         self.drawRotors(theta)
 
+
+
         if self.flagInit == True:
+            self.handle.append(mpatches.Circle((self.body.keypoints[0,7],self.body.keypoints[1,7]),radius=0.05))
+            self.ax.add_patch(self.handle[5])
             self.flagInit = False
+        else:
+            self.handle[5]._xy = (self.body.keypoints[0,7],self.body.keypoints[1,7])
 
     def drawCenter(self,theta):
 
@@ -91,20 +97,20 @@ class VTOLAnimation:
             ,angle=theta))
             self.ax.add_patch(self.handle[RIGHT_ROTOR])
         else:
-            pass
             self.handle[LEFT_ROTOR].center = x_left, y_left
             self.handle[RIGHT_ROTOR].center = x_right, y_right
-            self.handle[RIGHT_ROTOR].angle = theta
+            self.handle[RIGHT_ROTOR].angle = theta*180/np.pi
+            self.handle[LEFT_ROTOR].angle = theta*180/np.pi
 
 
 # Used to see the animation
 if __name__ == "__main__":
 
     dingie = VTOLAnimation()
-    z = 1.5
-    theta = 30
+    z = 0
+    theta = 90
     theta *= np.pi/180
-    h = .2
+    h = .0
     dingie.drawVTOL([z,h,theta])
     plt.axis('equal')
     plt.show()

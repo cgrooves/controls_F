@@ -41,9 +41,9 @@ class Sliders:
         ################################################################
         # Instantiate objects here
         self.Sz = mySlider(self.num_of_sliders,1,
-            0.5,-0.5,P.z0,1,'z')
-        self.Sh = mySlider(self.num_of_sliders,2,0.5,-0.5,P.h0,1,'h')
-        self.Stheta = mySlider(self.num_of_sliders,3,1.5,-1.5,0,1,'theta')
+            0.05,-0.05,P.z0,1,'z')
+        self.Sh = mySlider(self.num_of_sliders,2,0.05,-0.05,P.h0,1,'h')
+        self.Stheta = mySlider(self.num_of_sliders,3,0.5,-0.5,0,1,'theta')
 
         ################################################################
 

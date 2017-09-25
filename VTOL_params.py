@@ -26,5 +26,5 @@ target_width = 0.1
 target_height = 0.1
 
 body_coords = np.matrix([[-VTOL_center_size/2, -VTOL_center_size/2.0, \
-            VTOL_center_size/2.0, d - rotor_width/2.0, d, -d, -d + rotor_width/2.0],\
-            [0.0,-VTOL_center_size/2.0,0.0,0.0,0.0,0.0,0.0]])
+            VTOL_center_size/2.0, d - rotor_width/2.0, d, -d, -d + rotor_width/2.0,0.0],\
+            [0.0,-VTOL_center_size/2.0,0.0,0.0,0.0,0.0,0.0,0.0]])
