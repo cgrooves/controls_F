@@ -32,7 +32,7 @@ target = Rectangle(P.target_b, P.target_h, [0; P.target_h/2],ax);
 y = dynamics.output();
 
 % make output plot object
-plt = DynamicPlotData(P,'Left motor','Height');
+plt = PlotVTOLData(P);
 
 % while forever
 while isgraphics(VTOL)
@@ -51,7 +51,7 @@ while isgraphics(VTOL)
     animation.drawVTOL(y);
     
     % update plot
-    plt.update(f(1),y(2));
+    plt.update(f,y);
     
     pause(P.Ts);
     
