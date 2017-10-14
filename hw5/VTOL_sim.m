@@ -34,14 +34,19 @@ y = dynamics.output();
 % make output plot object
 plt = PlotVTOLData(P);
 
+% make signal
+signal = signalGenerator(3,.08);
+rnd = signalGenerator(2.5,0.08);
+t = P.t_start;
+
 % while forever
 while isgraphics(VTOL)
     % get input values
-    z_ref = get(z_slider,'Value');
+    z_ref = signal.square(t) + rnd.random(t);
     h_ref = get(h_slider,'Value');
     
     % get force from controller
-    f = controller.u(h_ref,y(2));
+    f = controller.u(h_ref,y(2),-z_ref,y(1),y(3));
     
     % propagate the dynamics based on input
     dynamics.propagateDynamics(f);
@@ -54,5 +59,7 @@ while isgraphics(VTOL)
     plt.update(f,y);
     
     pause(P.Ts);
+    
+    t = t + P.Ts; % increment timer
     
 end

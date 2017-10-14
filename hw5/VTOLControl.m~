@@ -2,6 +2,8 @@ classdef VTOLControl
    
     properties
         hCtrl
+        thetaCtrl
+        zCtrl
         
         mc
         mr
@@ -16,6 +18,8 @@ classdef VTOLControl
        %----------------
        function self = VTOLControl(P)
            self.hCtrl = PDControl(P.kp_h,P.kd_h,P.Ts);
+           self.thetaCtrl = PDControl(P.kp_theta,P.kd_theta,P.Ts);
+           self.zCtrl = PDControl(P.kp_z,P.kd_z,P.Ts);
            
            self.mc = P.mc;
            self.mr = P.mr;
@@ -26,17 +30,23 @@ classdef VTOLControl
            
        end
        %----------------
-       function force = u(self,h_r,h)
+       function force = u(self,h_r,h,z_ref,z)
            % find equilibrium force
            Fe = self.g*(self.mc + 2*self.mr);
            
            % get F from height controller
            F = self.hCtrl.PD(h_r,h) + Fe;
-    
-           left_ = 0.5*F; % get force
            
-           force(1) = self.saturation(init_force);
-           force(2) = self.saturation(init_force);
+           % get theta_ref from z
+           theta_ref = self.zCtrl.PD(z_ref,z);
+    
+           left_force = 0.5*F; % get force
+           right_force = 0.5*F;
+           
+           force = zeros(2,1);
+           
+           force(1) = self.saturation(left_force);
+           force(2) = self.saturation(right_force);
            
        end
        %----------------
