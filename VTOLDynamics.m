@@ -11,6 +11,7 @@ classdef VTOLDynamics < handle
        g
        Ts
        initials
+       var
        
     end
     
@@ -30,12 +31,17 @@ classdef VTOLDynamics < handle
             self.initials = self.state; % store initial values
             
             % Initialize other simulation parameters
-            self.mc = P.mc;
-            self.Jc = P.Jc;
+            % introduce +- 20% uncertainty in some params
+            self.var = P.var;
+            
+            self.mc = P.mc*((2*self.var)*rand + (1-self.var));
+            self.Jc = P.Jc*((2*self.var)*rand + (1-self.var));
+            self.d = P.d*((2*self.var)*rand + (1-self.var));
+            self.nu = P.nu*((2*self.var)*rand + (1-self.var));
+            
             self.ml = P.ml;
             self.mr = P.mr;
-            self.d = P.d;
-            self.nu = P.nu;
+            
             self.g = P.g;
             self.Ts = P.Ts; % system time step
         end

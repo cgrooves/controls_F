@@ -7,6 +7,8 @@ P.d = 0.3; % m, distance of rotor center from center mass center
 P.nu = 0.1; % kg/s, drag coefficient
 P.g = 9.81; % m/s^2, gravitational force
 
+P.var = 0.2; % uncertainty parameter, affects mc, Jc, d, and nu
+
 % Simulation parameters
 P.t_start = 0; % start time, seconds
 P.Ts = 0.05; % time step value, seconds
