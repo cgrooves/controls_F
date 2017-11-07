@@ -17,9 +17,9 @@ classdef VTOLControl
     methods
        %----------------
        function self = VTOLControl(P)
-           self.hCtrl = PDControl(P.h_gains.kP,P.h_gains.kD,P.Ts);
-           self.thetaCtrl = PDControl(P.theta_gains.kP,P.theta_gains.kD,P.Ts);
-           self.zCtrl = PDControl(P.z_gains.kP,P.z_gains.kD,P.Ts);
+           self.hCtrl = PIDControl(P.h_gains,P.tau,P.Ts,2*P.sat_limit,P.threshold);
+           self.thetaCtrl = PDControl(P.theta_gains.kP,P.theta_gains.kD,P.tau,P.Ts,[-inf, inf]);
+           self.zCtrl = PIDControl(P.z_gains,P.tau,P.Ts,[-inf,inf],P.threshold);
            
            self.mc = P.mc;
            self.mr = P.mr;
@@ -31,23 +31,22 @@ classdef VTOLControl
        end
        %----------------
        function force = u(self,h_r,h,z_ref,z,theta)
+           
+           
+           % get theta_ref from z
+           theta_ref = self.zCtrl.PID(z_ref,z,0,1);
+           T = self.thetaCtrl.PD(theta_ref,theta,0); % get torque T
+           
            % find equilibrium force
            Fe = self.g*(self.mc + 2*self.mr);
            
            % get F from height controller
-           F = self.hCtrl.PD(h_r,h) + Fe;
-           
-           % get theta_ref from z
-           theta_ref = self.zCtrl.PD(z_ref,z);
-           T = self.thetaCtrl.PD(theta_ref,theta); % get torque T
-    
-           left_force = 0.5*F - 0.5/self.d*T; % get force
-           right_force = 0.5*F + 0.5/self.d*T;
+           F = self.hCtrl.PID(h_r,h,Fe,1);
            
            force = zeros(2,1);
-           
-           force(1) = self.saturation(left_force);
-           force(2) = self.saturation(right_force);
+
+           force(1) = 0.5*F - 0.5/self.d*T; % get force
+           force(2) = 0.5*F + 0.5/self.d*T;
            
        end
        %----------------

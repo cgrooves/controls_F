@@ -70,7 +70,7 @@ classdef VTOLDynamics < handle
            xdot = zeros(6,1);
            
            xdot(1) = state(2);
-           xdot(2) = 1/(self.mc + 2*self.mr)*((fL+fR)*sin(state(5)) - self.nu*state(2));
+           xdot(2) = 1/(self.mc + 2*self.mr)*(-(fL+fR)*sin(state(5)) - self.nu*state(2));
            xdot(3) = state(4);
            xdot(4) = 1/(self.mc + 2*self.mr)*((fL+fR)*cos(state(5)) - self.g*(self.mc + 2*self.mr));
            xdot(5) = state(6);
