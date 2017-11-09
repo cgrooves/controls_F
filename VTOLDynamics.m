@@ -50,7 +50,7 @@ classdef VTOLDynamics < handle
             %
             % Integrate the differential equations defining dynamics by
             % using Runga-Kutta 4th order methods.
-            % u is the system inpus (f_l, f_r)
+            % u is the system inputs (fL, fR)
             
             k1 = self.derivatives(self.state, u);
             k2 = self.derivatives(self.state + self.Ts/2*k1, u);

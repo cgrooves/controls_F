@@ -51,15 +51,18 @@ P.sat_limit = [0,10];
 % Comment out to manually set the gains (above)
 % System response params
 P.tr_h = 1;
+P.wn_h = 2.2/P.tr_h;
 P.zeta_h = 0.707;
 
-P.tr_theta = 0.3;
+P.tr_theta = 0.18;
+P.wn_theta = 2.2/P.tr_theta;
 P.zeta_theta = 0.707;
 
 P.tr_z = 10*P.tr_theta;
+P.wn_z = 2.2/P.tr_z;
 P.zeta_z = 0.707;
 
-% Gain Values
+% PID Gain Values
 P.tau = 0.05;
 P.threshold = 0.1;
 
@@ -74,13 +77,47 @@ P.z_gains.kP = -1/P.g*(2.2/P.tr_z)^2;
 P.z_gains.kD = 1/P.g*(P.nu/(P.mc+2*P.mr) - 4.4*P.zeta_z/P.tr_z);
 P.z_gains.kI = -0.1;
 
-% P.h_gains.kP = 7.26;
-% P.h_gains.kD = 4.67;
-% P.h_gains.kI = 0.1;
-% 
-% P.theta_gains.kP = .3;
-% P.theta_gains.kD = .2;
-% 
-% P.z_gains.kP = -.008;
-% P.z_gains.kD = -.03;
-% P.z_gains.kI = .1;
+%% Full-state feedback
+% Lateral Dynamics
+P.A_lat = [0 0 1 0;
+    0 0 0 1;
+    0 -P.g -P.nu/(P.mc+2*P.mr) 0;
+    0 0 0 0];
+P.B_lat = [0 0 0 1/(P.Jc+2*P.mr*P.d^2)]';
+P.Cr_lat = [1 0 0 0];
+P.D_lat = 0;
+
+P.CC_lat = ctrb(P.A_lat,P.B_lat);
+
+if det(P.CC_lat) == 0
+    fprintf ("Lateral dynamics are not controllable\n");
+else
+    fprintf("Lateral dynamics are controllable\n");
+end
+
+P.lat_desired = conv([1,2*P.wn_z*P.zeta_z,P.wn_z^2],[1,2*P.wn_theta*...
+    P.zeta_theta,P.wn_theta^2]);
+P.p_lat = roots(P.lat_desired);
+
+P.K_lat = place(P.A_lat,P.B_lat,P.p_lat);
+P.kr_lat = -1/(P.Cr_lat*((P.A_lat - P.B_lat*P.K_lat)\P.B_lat));
+
+% Longitudinal Dynamics
+P.A_lon = [0 1;
+    0 0];
+P.B_lon = [0 1/(P.mc+2*P.mr)]';
+P.Cr_lon = [1 0];
+P.D_lon = 0;
+
+P.CC_lon = ctrb(P.A_lon,P.B_lon);
+
+if det(P.CC_lon) == 0
+    fprintf ("Longitudinal dynamics are not controllable\n");
+else
+    fprintf("Longitudinal dynamics are controllable\n");
+end
+
+P.p_lon = roots([1,2*P.zeta_h*P.wn_h,P.wn_h^2]);
+
+P.K_lon = place(P.A_lon,P.B_lon,P.p_lon);
+P.kr_lon = -1/(P.Cr_lon*((P.A_lon-P.B_lon*P.K_lon)\P.B_lon));
