@@ -96,8 +96,8 @@ else
 end
 
 P.lat_desired = conv([1,2*P.wn_z*P.zeta_z,P.wn_z^2],[1,2*P.wn_theta*...
-    P.zeta_theta,P.wn_theta^2]);
-P.p_lat = roots(P.lat_desired);
+    P.zeta_theta,P.wn_theta^2]); % desired characteristic equation
+P.p_lat = roots(P.lat_desired); % desired poles
 
 P.K_lat = place(P.A_lat,P.B_lat,P.p_lat);
 P.kr_lat = -1/(P.Cr_lat*((P.A_lat - P.B_lat*P.K_lat)\P.B_lat));
