@@ -18,7 +18,7 @@ P.zv0 = 0;
 P.z_min = -5;
 P.z_max = 5;
 
-P.h0 = 5;
+P.h0 = 0;
 P.h_min = 0;
 P.h_max = 10;
 
@@ -121,3 +121,12 @@ P.p_lon = roots([1,2*P.zeta_h*P.wn_h,P.wn_h^2]);
 
 P.K_lon = place(P.A_lon,P.B_lon,P.p_lon);
 P.kr_lon = -1/(P.Cr_lon*((P.A_lon-P.B_lon*P.K_lon)\P.B_lon));
+
+%% Full-state feedback w/ integrator
+% Longitudinal dynamics
+P.p_lon1 = cat(1,P.p_lon,-1.5);
+[P.K1_lon, P.ki1_lon] = FSF_integrator(P.A_lon,P.B_lon,P.Cr_lon,P.p_lon1);
+
+% Lateral dynamics
+P.p_lat1 = cat(1,P.p_lat,-4.5);
+[P.K1_lat, P.ki1_lat] = FSF_integrator(P.A_lat,P.B_lat,P.Cr_lat,P.p_lat1);

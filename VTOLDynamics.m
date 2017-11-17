@@ -57,6 +57,13 @@ classdef VTOLDynamics < handle
             k3 = self.derivatives(self.state + self.Ts/2*k2, u);
             k4 = self.derivatives(self.state + self.Ts*k3, u);
             self.state = self.state + self.Ts/6 * (k1 + 2*k2 + 2*k3 + k4);
+            
+            % constrain against ground
+            if self.state(3) < 0
+                self.state(3) = 0;
+                self.state(4) = 0;
+            end
+            
         end
         % ---------------------------------------------------------------
         function xdot = derivatives(self, state, u)
